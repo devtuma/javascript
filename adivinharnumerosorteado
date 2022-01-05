@@ -1,0 +1,90 @@
+function comparaRange2() {
+    while (range2 <= range1) {
+        if (range2 == range1) {
+            alert("Valor: " + range2 + " inserido é igual ao primeiro valor: " + range1);
+        } else {
+            alert("Valor: " + range2 + " inserido é menor que o primeiro valor: " + range1);
+        }
+        range2 = prompt("Qual o maior valor final ?");
+    }
+}
+
+function calculaRange() {
+    rangeTotal = (range2 - range1 + 1);
+    rangeOK = (rangeTotal > 2) && (rangeTotal < 6);
+}
+
+function verificaRespostaDentroRange() {
+    rangeRespostaOK = (numEscolhido >= range1) && (numEscolhido <= range2);
+    while (!rangeRespostaOK) {
+        numEscolhido = prompt("Numero escolhido fora do Range, escolha um numero entre " + range1 + " e " + range2);
+        rangeRespostaOK = (numEscolhido >= range1) && (numEscolhido <= range2);
+    }
+}
+
+var range1 = prompt("Qual o menor valor Inicial?");
+var range2 = prompt("Qual o maior valor final ?");
+
+comparaRange2();
+
+var rangeOK;
+var rangeTotal;
+
+calculaRange();
+
+while (!rangeOK) {
+    alert("O range escolhido foi de: " + rangeTotal + ", e é menor que  o intervalo de 3 números  ou maior que o intervalo de 5 números");
+    range2 = prompt("Qual o maior valor final ?");
+    comparaRange2();
+    calculaRange();
+}
+alert("Veja se consegue acertar o numero sorteado");
+
+////////////////////////////////////////////////////
+
+var numSorteado = 0;
+
+let min = Math.floor(range1);
+let max = Math.floor(range2);
+numSorteado = Math.floor(Math.random() * (max - min + 1)) + min;
+console.log(numSorteado);
+
+var numerosTentados = [];
+var rangeRespostaOK;
+
+var numEscolhido = prompt("Qual o número sorteado ?");
+
+verificaRespostaDentroRange();
+
+var compEscolhaResult = (numSorteado) == (numEscolhido);
+var j = 0;
+while (!compEscolhaResult) {
+    //for (var i = 0; i < numerosTentados.length; i++) {
+    // o "for" abaixo faz exatamente a mesma funcao que o "for" acima faria    
+    for (var i in numerosTentados) {
+        var numeroJaEscolhido = (numerosTentados[i] == numEscolhido);
+        if (numeroJaEscolhido) {
+            // variaval "j" para controle de numero ja existente dentro do Array de numeros ja tentados
+            j = 1;
+        }
+    }
+    console.log(j);
+    if (j > 0) {
+        alert("Este numero ja foi apresentado, tente outro");
+        numEscolhido = prompt("Qual o número sorteado ?");
+        verificaRespostaDentroRange();
+        compEscolhaResult = (numSorteado) == (numEscolhido);
+        j = 0;
+    } else {
+        numerosTentados.push(numEscolhido);
+        alert("Errato !!! Proximo numero :)");
+        numEscolhido = prompt("Qual o número sorteado ?");
+        verificaRespostaDentroRange();
+        compEscolhaResult = (numSorteado) == (numEscolhido);
+    }
+}
+console.log(numerosTentados);
+console.log(numSorteado);
+
+alert("Parabens, voce acertou");
+
